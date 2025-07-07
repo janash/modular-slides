@@ -1,0 +1,15 @@
+node_modules/
+
+*backup*
+
+# Node.js
+node_modules/
+npm-debug.log*
+.env
+.DS_Store
+*.log
+*.tgz
+.vscode/
+build/
+dist/
+coverage/

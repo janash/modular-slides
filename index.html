@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lecture Slides</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="slides">
+    <!-- Slides loaded dynamically -->
+  </div>
+
+  <!-- Global Footer - appears on all slides -->
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <img src="./images/molssi_main.png" alt="MolSSI">
+    </div>
+    <div class="footer-info">
+      <span></span> <!-- Update this to your course name -->
+    </div>
+  </div>
+
+  <div class="nav">
+    <!-- Navigation will be created by section-navigation.js -->
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+  <script src="core.js"></script>
+  <script src="animations.js"></script>
+  <script src="section-navigation.js"></script>
+  <script src="edit.js"></script>  
+  <script>
+    loadSections([
+      {file: 'title', name: 'Title'}, 
+      {file: 'outline', name: 'Course Outline'},
+      //{file: 'cheminformatics', name: 'Introduction to Cheminformatics'},
+    ]);
+  </script>
+</body>
+</html>

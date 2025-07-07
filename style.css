@@ -1,0 +1,1689 @@
+/* =================================================================== */
+/* CSS Variables (from your red-themed version)                      */
+/* =================================================================== */
+:root {
+    /* Brand colors */
+    --primary-color: #ed1c24; /* Primary red */
+    --primary-color-rgb: 237, 28, 36;
+    --primary-light: rgba(237, 28, 36, 0.1); /* Light tint of primary */
+    
+    /* Light theme palette */
+    --light-background: #fafafa; /* Very light gray for body background */
+    --light-surface: #f0f0f0;    /* Slightly darker gray for cards/nav */
+    --light-card: #ffffff;      /* Pure white for content cards */
+    --light-card-rgb: 255, 255, 255;
+    --light-text-primary: #333333; /* Dark gray for main text */
+    --light-text-primary-rgb: 51, 51, 51;
+    --light-text-secondary: #666666; /* Medium gray for secondary text */
+    --light-text-secondary-rgb: 102, 102, 102;
+    --light-border: #e0e0e0;    /* Light gray for borders */
+    --light-shadow: rgba(0, 0, 0, 0.08); /* Subtle shadow color */
+
+    /* Functional/Semantic Colors (updated to a standard Bootstrap-like palette for consistency) */
+    --info-blue: #007bff;      /* Standard blue */
+    --success-green: #28a745;  /* Standard green */
+    --warning-orange: #fd7e14; /* Standard orange */
+    --danger-red: #dc3545;    /* Standard red */
+
+    /* Font sizes - using rem for better responsiveness based on root font size */
+    --slide-font-size: 1.15rem; /* Base font size for slide body */
+    --code-font-size: 0.9rem;   /* Base font size for code blocks */
+}
+
+
+/* =================================================================== */
+/* GLOBAL & DESKTOP STYLES                                             */
+/* =================================================================== */
+
+/* FIX #1: Universal Box Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* Updated font-family */
+    background: var(--light-background); /* Updated to use variable */
+    color: var(--light-text-primary);   /* Updated to use variable */
+    padding-bottom: 60px; /* Creates space at the bottom for the fixed desktop navigation bar */
+    transition: all 0.2s ease; /* Smooth transition for theme changes */
+}
+
+/* --- General Slide Styles --- */
+.slide {
+    display: none; /* Hide all slides by default */
+    width: 100%;
+    height: 100vh;
+    padding: 1.5em 2em 4em 2em; /* Increased bottom padding for footer */
+    position: relative;
+    background: var(--light-card); /* Updated to use variable */
+    overflow: hidden;
+    font-size: var(--slide-font-size); /* Use CSS variable for dynamic sizing */
+}
+
+.slide.active {
+    display: block; /* Show the active slide */
+}
+
+/* Faded background for all regular slides - REMOVED the image as per red-themed version */
+.slide::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* The red-themed version removes this background image */
+    display: none; /* Hide the pseudo-element completely */
+    z-index: 0;
+}
+
+/* Ensure all slide content is above the faded background */
+.slide > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* =================================================================== */
+/* SIMPLIFIED HEADER STYLES (Updated to align with red-themed version's approach) */
+/* =================================================================== */
+
+/* --- Header and Content Styles --- */
+.slide-header {
+    display: flex;
+    /* The red-themed version didn't specify justify-content for general slide-header,
+       but the previous 'centered' was specific to older Berkeley.
+       For a general title, it's often centered or flex-start.
+       Let's stick to 'center' as it was present in the *original* Berkeley file you want to base on.
+       However, the new HTML doesn't have left/right headers for *each* slide, just a title.
+       So 'center' is appropriate for a single title.
+    */
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--light-border); /* Updated to use variable */
+    padding-bottom: 1em; /* Increased for larger header, from red-themed version */
+    margin-bottom: 1.5em; /* Increased for larger header, from red-themed version */
+}
+
+/* Single centered title style - This is what replaces left/right header text for general slides */
+.slide-title {
+    font-size: 1.8em; /* Kept original size */
+    font-weight: bold;
+    color: var(--light-text-primary); /* Updated to use variable (primary text for titles) */
+    text-align: center;
+    margin: 0;
+}
+
+/* Removed .left-header and .right-header styles as the new HTML structure doesn't use them directly for content slides */
+
+/* =================================================================== */
+/* FOOTER STYLES (Updated to align with red-themed version's approach) */
+/* =================================================================== */
+
+/* Footer styling */
+.slide-footer {
+    position: fixed;
+    bottom: 60px;
+    left: 0; /* Ensures full width */
+    right: 0; /* Ensures full width */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--light-border);
+    padding-top: 0.5em;
+    z-index: 50;
+    background: rgba(var(--light-card-rgb), 0.95);
+    height: 45px; /* NEW: Set a fixed height for the footer's background/line area */
+    padding-top: 0; /* NEW: Remove this padding as height is fixed now */
+    padding-bottom: 0; /* NEW: Also remove padding-bottom for consistent height */
+    overflow: visible; /* NEW: Ensure content extending beyond fixed height is not clipped */
+}
+
+/* Ensure the image height is 75px and then lift it */
+.footer-logo img {
+    height: 75px;
+    opacity: 1; /* Removed fade */
+    background-color: white; /* Fill transparent parts with white */
+    border: 1px solid var(--light-border); /* Add light border */
+    padding: 5px; /* Add padding around the image inside the border */
+    margin-left: 10px;
+    box-sizing: border-box; /* Ensure padding and border are included in the 75px height */
+    transform: translateY(-20px); /* Keep this from the previous step for vertical alignment */
+}
+
+/* Also adjust the footer-info vertical alignment if needed due to fixed height */
+.footer-info {
+    font-size: 0.9em;
+    color: var(--light-text-secondary);
+    /* NEW: Add these to ensure vertical centering within the new fixed height footer */
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+
+/* Optional: Course name or other info in footer */
+.footer-info {
+    font-size: 0.9em;
+    color: var(--light-text-secondary); /* Updated to use variable */
+    font-weight: 500;
+}
+
+/* Styles for navigation in full-screen mode */
+.fullscreen-active .nav {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.fullscreen-active .nav:hover {
+    opacity: 1;
+}
+
+.fullscreen-active .nav:not(:hover) {
+    transition-delay: 1s;
+}
+
+/* FIX #2: Correct Two-Column Layout */
+.slide-body.two-column {
+    display: flex;
+    gap: 2em;
+    align-items: flex-start;
+}
+
+.slide-body.one-column {
+    font-size: 1.1em; /* Adjusted: Consistent with new base font */
+    width: 100%;
+    max-width: none;
+    display: block;
+}
+
+/* Initial state: open eye visible, closed eye hidden */
+.annotation-toggle .eye-open-icon {
+    display: inline-block;
+}
+.annotation-toggle .eye-closed-icon {
+    display: none;
+}
+
+/* When annotations are hidden: open eye hidden, closed eye visible */
+.annotation-toggle.annotations-hidden .eye-open-icon {
+    display: none;
+}
+.annotation-toggle.annotations-hidden .eye-closed-icon {
+    display: inline-block;
+}
+
+/* Ensure icons maintain proper size/color inside button */
+.toggle-icon svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    stroke: currentColor;
+}
+.highlight {
+    background-color: rgba(255, 229, 100, 0.7); /* A pleasant yellow highlight (kept functional color) */
+    border-radius: 4px;
+    padding: 0.1em 0.3em;
+    margin: -0.1em -0.3em;
+    transition: background-color 0.3s ease;
+}
+
+/* --- Section Header Slide Styles (Updated to use variables) --- */
+.slide-body.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+}
+
+.section-content {
+    text-align: left;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--light-text-primary); /* Updated to use variable */
+    margin: 0;
+    line-height: 1.2;
+}
+
+.section-subtitle {
+    font-size: 1.4rem;
+    color: var(--light-text-secondary); /* Updated to use variable */
+    margin: 1rem 0 0 0;
+    font-weight: 400;
+}
+
+/* Responsive adjustments for section header */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+.left-panel, .right-panel {
+    flex: 1;
+    min-width: 0;
+    color: var(--light-text-primary); /* Ensure panel text color follows theme */
+}
+
+/* General text readability improvements (from red-themed version) */
+p {
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+ul, ol {
+    line-height: 1.6;
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+    list-style: disc;
+}
+
+ol {
+    list-style: decimal;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+/* --- Code Block and Syntax Highlighting Styles (General/Standalone) --- */
+pre[class*="language-"] {
+    background: var(--light-surface); /* Updated to use variable */
+    color: var(--light-text-primary); /* Updated to use variable */
+    font-family: Consolas, 'Source Code Pro', monospace;
+    font-size: var(--code-font-size); /* Uses updated variable */
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: break-word;
+    word-wrap: break-word;
+    line-height: 1.3;
+    padding: 0.8em;
+    border: 1px solid var(--light-border); /* Updated to use variable */
+    border-radius: 8px;
+    overflow: auto;
+    max-height: 70vh;
+}
+
+/* PrismJS token styling (Quiet Light theme - kept as is for syntax clarity) */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #008000; font-style: italic; }
+.token.punctuation { color: #393A34; }
+.token.namespace { opacity: .7; }
+.token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { color: #098658; }
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: #a31515; }
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: #393A34; }
+.token.atrule, .token.attr-value, .token.keyword { color: #0000ff; }
+.token.function, .token.class-name { color: #795e26; }
+.token.regex, .token.important, .token.variable { color: #e90; }
+.token.important, .token.bold { font-weight: bold; }
+.token.italic { font-style: italic; }
+.token.entity { cursor: help; }
+
+/* --- Title Slide Styles (Updated to use variables) --- */
+.title-slide {
+    padding: 0;
+    background: var(--light-background); /* Updated to use variable */
+    /* Original campanile background image is removed from here too, if it was intended in the red-themed version */
+}
+.title-slide::before { display: none; } /* Ensure no double background */
+
+.title-left, .title-right {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3em;
+}
+.title-left {
+    left: 0;
+    width: 60%;
+    background: rgba(var(--light-card-rgb), 0.85); /* Updated to use variable */
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+.title-right {
+    right: 0;
+    width: 40%;
+    background-color: var(--light-surface); /* Updated to use variable (neutral surface) */
+    color: var(--light-text-primary); /* Updated to use variable (primary text) */
+    align-items: flex-start;
+    border-left: 4px solid var(--primary-color); /* Added red accent border, from red-themed version */
+}
+.title-left h2 {
+    font-size: 1.4em;
+    color: var(--light-text-primary); /* Updated to use variable */
+    font-weight: bold;
+    margin: 0;
+}
+.title-left h1 {
+    font-size: 2.5em;
+    color: var(--light-text-primary); /* Updated to use variable */
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.1;
+}
+.uc-seal {
+    margin-top: 1.5em;
+    max-height: 400px;
+    aspect-ratio: auto;
+    align-self: flex-start;
+}
+.title-right .info p {
+    font-size: 1em;
+    margin: 0.5em 0;
+}
+.title-right .info strong {
+    font-weight: bold;
+}
+/* Note: .msse-logo from red-themed version is left out as it was not in the original Berkeley version.
+   If you need it, add it back specifically with its new theme colors. */
+
+/* Main Button Styles (Updated to use new gray palette) */
+button {
+    font-size: 0.85em; /* Adjusted slightly from original 0.9em to match red-themed version */
+    padding: 6px 10px; /* Adjusted slightly from original 8px 16px to match red-themed version */
+    border-radius: 6px; /* Adjusted from original 20px to match red-themed version */
+    border: none;
+    background: #4a4a4a; /* Changed from Berkeley blue to dark gray from red-themed version */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Added from red-themed version */
+    white-space: nowrap; /* Added from red-themed version */
+}
+button:hover {
+    background: #666666; /* Slightly lighter gray on hover, from red-themed version */
+}
+
+.jump-container { display: flex; }
+#slide-jumper {
+    width: 50px;
+    text-align: center;
+    border: 1px solid var(--light-border); /* Updated to use variable */
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    padding: 8px;
+    font-size: 1em;
+    background: var(--light-card); /* Updated to use variable */
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+#jump-btn { border-radius: 0 20px 20px 0; }
+
+/* --- Code Annotation Styling (Updated to use new gray palette) --- */
+.code-container { position: relative; }
+.code-annotation {
+    position: absolute;
+    background-color: #444444; /* Changed from Berkeley blue to dark gray */
+    color: var(--light-card); /* White text on new background */
+    padding: 6px 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px var(--light-shadow); /* Updated to use variable */
+    font-family: 'Inter', sans-serif; /* Updated font-family */
+    font-size: 0.8em;
+    border: 1px solid var(--light-card); /* Updated to use variable */
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+}
+.code-annotation.show { opacity: 1; pointer-events: auto; }
+.code-annotation::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #444444 transparent transparent transparent; /* Match new annotation background */
+}
+
+.copy-code-button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    background-color: rgba(var(--light-text-secondary-rgb), 0.7); /* Functional grey with opacity */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75em;
+    font-family: inherit;
+    z-index: 20;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(var(--light-card-rgb), 0.1);
+}
+
+/* Show button on hover over the code container */
+.code-container:hover .copy-code-button {
+    opacity: 0.8;
+}
+
+.copy-code-button:hover {
+    opacity: 1 !important;
+    transform: translateY(-1px);
+    background-color: rgba(var(--light-text-secondary-rgb), 1);
+}
+
+.copy-code-button:active {
+    transform: translateY(0);
+}
+
+/* Success state styling */
+.copy-code-button.copied {
+    background-color: rgba(46, 125, 50, 0.9); /* Keep functional green */
+    opacity: 1 !important;
+}
+
+.copy-code-button.copied:hover {
+    background-color: rgba(46, 125, 50, 1);
+}
+
+/* Icon styles for copy and check marks */
+.copy-icon, .check-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.check-icon {
+    display: none;
+}
+
+.copy-code-button.copied .copy-icon {
+    display: none;
+}
+
+.copy-code-button.copied .check-icon {
+    display: inline;
+}
+
+/* Mobile adjustments */
+@media (max-width: 800px) {
+    .copy-code-button {
+        opacity: 0.7;
+        font-size: 0.7em;
+        padding: 4px 8px;
+    }
+}
+
+/* =================================================================== */
+/* BOX STYLING: File Boxes, Info Boxes, Problem/Solution Boxes (Updated for new palette) */
+/* =================================================================== */
+
+/* File header styling */
+.file-header {
+    background: #4a4a4a; /* Changed to dark gray */
+    color: white;
+    padding: 0.5em 0.8em;
+    margin: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+/* Semantic colors for file headers (these now only apply if you explicitly set them with these classes in HTML) */
+.file-header.blue { background: var(--info-blue); } /* Updated to use variable */
+.file-header.orange { background: var(--warning-orange); } /* Updated to use variable */
+.file-header.green { background: var(--success-green); } /* Updated to use variable */
+.file-header.red { background: var(--danger-red); } /* Explicitly added red for consistency */
+
+
+/* NEW WRAPPER FOR FILE HEADER + FILE CONTENT COMBINATION */
+.file-box-container {
+    border: 1px solid #4a4a4a; /* Changed to dark gray to match header */
+    border-radius: 4px;
+    margin-bottom: 1.8em;
+    background: var(--light-card); /* Updated to use variable */
+}
+
+/* Semantic colors for file box containers (borders) */
+.file-box-container.blue { border-color: var(--info-blue); } /* Updated to use variable */
+.file-box-container.orange { border-color: var(--warning-orange); } /* Updated to use variable */
+.file-box-container.green { border-color: var(--success-green); } /* Updated to use variable */
+.file-box-container.red { border-color: var(--danger-red); } /* Updated to use variable */
+
+
+/* File content containers */
+.file-content {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: var(--light-card); /* Updated to use variable */
+}
+
+
+/* Code Block and Syntax Highlighting Styles (for pre elements within content boxes) */
+pre[class*="language-"] {
+    background: var(--light-surface); /* Updated to use variable */
+    color: var(--light-text-primary); /* Updated to use variable */
+    font-family: Consolas, 'Source Code Pro', monospace;
+    font-size: var(--code-font-size);
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: break-word;
+    word-wrap: break-word;
+    line-height: 1.4;
+    padding: 1em;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    overflow: auto;
+    max-height: 65vh;
+}
+
+/* Command line styling */
+.command-box {
+    background: var(--light-surface); /* Updated to use variable */
+    padding: 1em;
+    border-radius: 0;
+    font-family: monospace;
+    font-size: 0.9em;
+    border: none;
+    margin: 0;
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+
+/* Info boxes for explanations (default to neutral background, colored left border) */
+.info-box {
+    border-left: 4px solid var(--info-blue); /* Updated to use variable */
+    background: var(--light-surface); /* Updated to use variable (neutral background) */
+    padding: 0.9em 1.2em;
+    margin: 1.2em 0;
+    border-radius: 4px;
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+
+/* Semantic variants for info boxes (colored border, neutral background) */
+.info-box.blue { border-color: var(--info-blue); } /* Updated to use variable */
+.info-box.green { border-color: var(--success-green); } /* Updated to use variable */
+.info-box.orange { border-color: var(--warning-orange); } /* Updated to use variable */
+.info-box.red { border-color: var(--danger-red); } /* Updated to use variable */
+
+
+/* Problem/solution/example boxes (Updated for new palette) */
+.problem-box, .solution-box, .example-box {
+    border-radius: 8px;
+    padding: 0.9em 1.2em;
+    margin: 1.2em 0;
+    color: var(--light-text-primary); /* Updated to use variable */
+    background: var(--light-surface); /* Updated to use variable (neutral background) */
+}
+
+.problem-box {
+    border: 2px solid var(--danger-red); /* Updated to use variable */
+}
+
+.solution-box {
+    border: 2px solid var(--success-green); /* Updated to use variable */
+}
+
+.example-box {
+    border: 2px solid var(--info-blue); /* Updated to use variable */
+}
+
+/* Box headers for info/problem/solution/example boxes (Updated for new palette) */
+.box-header {
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-size: 0.95em;
+    color: var(--light-text-primary); /* Default text primary */
+}
+
+/* Semantic colors for box headers (text color) */
+.box-header.blue { color: var(--info-blue); } /* Updated to use variable */
+.box-header.green { color: var(--success-green); } /* Updated to use variable */
+.box-header.orange { color: var(--warning-orange); } /* Updated to use variable */
+.box-header.red { color: var(--danger-red); } /* Updated to use variable */
+
+/* Styles for code/command blocks *nested within* general info/problem/solution boxes */
+.info-box pre[class*="language-"],
+.problem-box pre[class*="language-"],
+.solution-box pre[class*="language-"],
+.example-box pre[class*="language-"],
+.info-box .command-box,
+.problem-box .command-box,
+.solution-box .command-box,
+.example-box .command-box {
+    margin: 0.8em 0;
+    border: 1px solid var(--light-border); /* Updated to use variable */
+    border-radius: 4px;
+    padding: 0.8em;
+    font-size: 0.85em;
+    background: var(--light-card); /* Changed to light-card for nested code blocks, slightly lighter than surface */
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+
+/* Specific adjustment for pre/command-box within these boxes if it's the first/last child */
+.info-box > pre[class*="language-"]:first-child,
+.problem-box > pre[class*="language-"]:first-child,
+.solution-box > pre[class*="language-"]:first-child,
+.example-box > pre[class*="language-"]:first-child,
+.info-box > .command-box:first-child,
+.problem-box > .command-box:first-child,
+.solution-box > .command-box:first-child,
+.example-box > .command-box:first-child {
+    margin-top: 0;
+}
+
+.info-box > pre[class*="language-"]:last-child,
+.problem-box > pre[class*="language-"]:last-child,
+.solution-box > pre[class*="language-"]:last-child,
+.example-box > pre[class*="language-"]:last-child,
+.info-box > .command-box:last-child,
+.problem-box > .command-box:last-child,
+.solution-box > .command-box:last-child,
+.example-box > .command-box:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Simple text content inside file containers */
+.file-text {
+    background: var(--light-card); /* Updated to use variable */
+    padding: 1em;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.8em;
+    line-height: 1.4;
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+
+
+/* --- Interactive UI Elements Styling (Updated for new palette) --- */
+
+/* Interactive counter styles */
+#counter {
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    user-select: none;
+    min-width: 60px;
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--light-border); /* Updated to use variable */
+    background: var(--light-card); /* Updated to use variable */
+    color: var(--light-text-primary); /* Updated to use variable */
+    font-size: 0.9em;
+}
+
+#counter:hover {
+    border-color: var(--primary-color); /* Updated to use variable */
+    box-shadow: 0 0 3px rgba(var(--primary-color-rgb), 0.3); /* Updated to use variable */
+    background: var(--light-surface); /* Updated to use variable */
+}
+
+#counter:focus-within {
+    border-color: var(--primary-color); /* Updated to use variable */
+    box-shadow: 0 0 5px rgba(var(--primary-color-rgb), 0.5); /* Updated to use variable */
+    outline: none;
+}
+
+#slide-input {
+    background: transparent; /* Changed from white for transparency with parent counter */
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    width: 100%;
+    text-align: center;
+    font-family: inherit;
+    outline: none;
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+
+/* Hide number input arrows */
+#slide-input::-webkit-outer-spin-button,
+#slide-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#slide-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* =================================================================== */
+/* MOBILE & RESPONSIVE STYLES (Updated for new palette)                */
+/* =================================================================== */
+@media (max-width: 800px) {
+    body {
+        padding-bottom: 0;
+        padding-top: 70px;
+    }
+
+    /* 1. Move Nav to Top */
+    .nav {
+        top: 0;
+        bottom: auto;
+        border-top: none;
+        border-bottom: 1px solid var(--light-border); /* Updated to use variable */
+        height: 70px;
+        flex-direction: column;
+        gap: 0.5em;
+        padding: 5px 10px;
+        background: var(--light-surface); /* Updated to use variable */
+    }
+    
+    .nav #counter { display: none; }
+    
+    /* 2. Adjust Slide Layout */
+    .slide {
+        height: auto;
+        min-height: calc(100vh - 70px);
+        padding: 1em;
+        font-size: 1.2em;
+    }
+    
+    .slide-body.two-column {
+        flex-direction: column;
+        gap: 1em;
+        align-items: stretch;
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+        flex: none;
+    }
+
+    /* 3. Simplify Nav Controls */
+    .desktop-only, .jump-container {
+        display: none;
+    }
+    
+    button { padding: 6px 12px; border-radius: 8px; }
+    
+    /* 4. Adjust Title Slide for Mobile */
+    .title-left, .title-right {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        padding: 1em;
+    }
+    .title-left h1 { font-size: 1.8em; }
+    .title-left h2 { font-size: 1.2em; }
+    .uc-seal { max-height: 250px; margin-top: 0.8em; }
+
+    /* Adjusted for mobile: make info-boxes and code smaller within panels */
+    .info-box, .command-box, pre[class*="language-"] {
+        font-size: 0.9em;
+        padding: 0.6em;
+        margin: 0.6em 0;
+    }
+    .box-header {
+        font-size: 0.8em;
+    }
+
+    /* Ensure file-box-container has bottom margin on mobile too for separation */
+    .file-box-container {
+        margin-bottom: 1em;
+    }
+
+    /* Mobile footer adjustments */
+    .slide-footer {
+        bottom: 1em;
+        left: 1em;
+        right: 1em;
+        padding-top: 0.3em;
+    }
+    
+    .footer-logo img {
+        height: 25px; /* Existing value for mobile */
+        opacity: 1; /* Removed fade for mobile */
+        background-color: white; /* Fill transparent parts with white for mobile */
+        border: 1px solid var(--light-border); /* Add light border for mobile */
+        padding: 2px; /* Adjust padding for smaller mobile size */
+        box-sizing: border-box; /* Ensure padding and border are included in 25px height */
+        transform: translateY(-12.5px); /* Adjust transform for 25px height */
+    }
+    
+    .footer-info {
+        font-size: 0.8em;
+    }
+}
+
+/* Control Guide Modal Styles (Updated for new palette) */
+.control-guide-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.control-guide-overlay.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.control-guide-modal {
+    background: var(--light-card) !important; /* Updated to use variable */
+    border-radius: 12px;
+    max-width: 700px;
+    max-height: 80vh;
+    width: 90%;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    z-index: 10000 !important;
+    position: relative;
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+
+.control-guide-overlay.show .control-guide-modal {
+    transform: scale(1);
+}
+
+.control-guide-header {
+    background: var(--primary-color); /* Updated to use variable */
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-guide-header h3 {
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.close-guide {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.close-guide:hover {
+    background-color: rgba(var(--light-card-rgb), 0.1); /* Updated to use variable */
+}
+
+.control-guide-content {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.control-section {
+    margin-bottom: 25px;
+}
+
+.control-section h4 {
+    color: var(--primary-color); /* Updated to use variable */
+    margin: 0 0 15px 0;
+    font-size: 1.1em;
+    border-bottom: 2px solid var(--light-border); /* Updated to use variable */
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.control-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 0;
+}
+
+.control-key {
+    background: var(--light-surface); /* Updated to use variable */
+    border: 1px solid var(--light-border); /* Updated to use variable */
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: monospace;
+    font-size: 0.9em;
+    font-weight: bold;
+    min-width: 80px;
+    text-align: center;
+    color: var(--light-text-primary); /* Updated to use variable */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.control-desc {
+    color: var(--light-text-secondary); /* Updated to use variable */
+    flex: 1;
+}
+
+.tips-list {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--light-text-secondary); /* Updated to use variable */
+}
+
+.tips-list li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+/* Fullscreen mode styles */
+.fullscreen-mode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: black;
+}
+
+/* Mobile Responsive */
+@media (max-width: 800px) {
+    .control-guide-modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .control-grid {
+        font-size: 0.9em;
+    }
+    
+    .control-key {
+        min-width: 60px;
+        font-size: 0.8em;
+    }
+}
+
+/* Hamburger Menu Styles (Updated for new palette) */
+.hamburger-menu {
+    background: var(--primary-light) !important; /* Updated to use variable */
+    color: var(--primary-color) !important; /* Updated to use variable */
+}
+
+.hamburger-menu svg {
+    stroke: var(--primary-color); /* Updated to use variable */
+}
+
+.hamburger-menu:hover {
+    background: rgba(var(--primary-color-rgb), 0.2) !important; /* Updated to use variable */
+}
+
+.hamburger-menu:hover svg {
+    stroke: var(--primary-color); /* Updated to use variable */
+}
+
+/* Sidebar Styles (Updated for new palette) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background: var(--light-card); /* Updated to use variable */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    border-right: 1px solid var(--light-border); /* Updated to use variable */
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-header {
+    padding: 20px;
+    background: var(--primary-color); /* Updated to use variable */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.close-sidebar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.close-sidebar:hover {
+    background-color: rgba(var(--light-card-rgb), 0.1); /* Updated to use variable */
+}
+
+.sidebar-content {
+    padding: 20px 0;
+}
+
+.section-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--light-border); /* Updated to use variable */
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-item:hover {
+    background-color: var(--light-surface); /* Updated to use variable */
+}
+
+.section-item.current {
+    background-color: var(--primary-light); /* Updated to use variable */
+    border-left: 4px solid var(--primary-color); /* Updated to use variable */
+}
+
+.section-name {
+    font-weight: 500;
+    color: var(--light-text-primary); /* Updated to use variable */
+}
+
+.section-info {
+    font-size: 0.85em;
+    color: var(--light-text-secondary); /* Updated to use variable */
+}
+
+/* Update nav to include hamburger (copied from red-themed version, assuming intended usage) */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Enhanced Navigation Styles (Updated for new palette) */
+.nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--light-surface); /* Updated to use variable */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid var(--light-border); /* Updated to use variable */
+    z-index: 100;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-center {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.slide-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: rgba(var(--light-card-rgb), 0.2); /* Updated to use variable */
+    border-radius: 6px;
+    border: 1px solid rgba(var(--light-text-secondary-rgb), 0.2); /* Updated to use variable */
+}
+
+.animation-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: rgba(var(--light-card-rgb), 0.1); /* Updated to use variable */
+    border-radius: 6px;
+    border: 1px solid rgba(var(--light-text-secondary-rgb), 0.1); /* Updated to use variable */
+}
+
+.nav-label {
+    font-size: 0.8em;
+    color: var(--light-text-secondary); /* Updated to use variable */
+    margin-right: 4px;
+    white-space: nowrap;
+}
+
+/* Button styling - these are general buttons throughout the system */
+button {
+    font-size: 0.85em;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    background: #4a4a4a; /* Updated to dark gray from red-themed version */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+button:hover {
+    background: #666666; /* Updated to lighter gray from red-themed version */
+}
+
+.animation-btn {
+    font-size: 0.8em !important;
+    padding: 4px 6px !important;
+    min-width: auto;
+}
+
+/* Compact buttons for nav-right */
+.nav-right button {
+    font-size: 0.8em;
+    padding: 5px 8px;
+}
+
+/* SVG icon styling */
+button svg {
+    stroke: currentColor;
+    fill: none;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+button:hover svg {
+    stroke: currentColor;
+}
+
+/* Hamburger menu icon */
+.hamburger-menu {
+    background: var(--primary-light) !important; /* Updated to use variable */
+    color: var(--primary-color) !important; /* Updated to use variable */
+}
+
+.hamburger-menu svg {
+    stroke: var(--primary-color); /* Updated to use variable */
+}
+
+.hamburger-menu:hover {
+    background: rgba(var(--primary-color-rgb), 0.2) !important; /* Updated to use variable */
+}
+
+.hamburger-menu:hover svg {
+    stroke: var(--primary-color); /* Updated to use variable */
+}
+
+/* Toggle icon for annotations */
+.toggle-icon svg {
+    stroke: currentColor;
+    margin-right: 4px;
+}
+
+.annotation-toggle.annotations-hidden .toggle-icon svg {
+    stroke: currentColor;
+}
+
+#counter {
+    margin: 0 6px;
+    font-weight: bold;
+    min-width: 45px;
+    text-align: center;
+    font-size: 0.9em;
+    background: transparent; /* Changed to transparent for parent's background */
+    color: var(--light-text-primary); /* Updated to use variable */
+    border: 1px solid var(--light-border); /* Updated to use variable */
+    border-radius: 4px;
+    padding: 4px 6px;
+}
+
+#counter:hover {
+    background: var(--light-surface); /* Updated to use variable */
+    border-color: var(--primary-color); /* Updated to use variable */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 800px) {
+    body {
+        padding-bottom: 0;
+        padding-top: 70px;
+    }
+
+    .nav {
+        top: 0;
+        bottom: auto;
+        border-top: none;
+        border-bottom: 1px solid var(--light-border); /* Updated to use variable */
+        height: 70px;
+        flex-direction: column;
+        gap: 0.5em;
+        padding: 5px 10px;
+        background: var(--light-surface); /* Updated to use variable */
+    }
+    
+    .nav-center {
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+    }
+    
+    .nav-right {
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .animation-nav-group .nav-label {
+        display: none;
+    }
+    
+    .nav-right button {
+        font-size: 0.75em;
+        padding: 3px 5px;
+    }
+    
+    button {
+        font-size: 0.8em;
+        padding: 4px 6px;
+    }
+    
+    #counter {
+        font-size: 0.8em;
+        min-width: 35px;
+        padding: 3px 4px;
+    }
+}
+
+@media print {
+    /* Preserve colors and backgrounds exactly as on screen */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    /* Set up proper page formatting */
+    @page {
+        size: landscape;
+        margin: 0.5in;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    /* Make all slides visible and give each its own page */
+    body.printing-all-slides .footer-logo img {
+        height: 25px; /* Existing value for print */
+        opacity: 1 !important; /* Removed fade for print */
+        background-color: white; /* Fill transparent parts with white for print */
+        border: 1px solid var(--light-border); /* Add light border for print */
+        padding: 2px; /* Adjust padding for smaller print size */
+        box-sizing: border-box; /* Ensure padding and border are included in 25px height */
+        transform: translateY(-12.5px); /* Adjust transform for 25px height */
+    }
+
+    body.printing-all-slides .slide {
+        display: block !important;
+        visibility: visible !important;
+        
+        /* Strict page breaking - one slide per page */
+        page-break-before: always;
+        page-break-after: always;
+        page-break-inside: avoid !important;
+        
+        /* Reset any transforms but keep original layout */
+        position: relative;
+        transform: none;
+        
+        /* Constrain slide to fit exactly on one page */
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        
+        /* Reasonable padding for print */
+        padding: 0.6em 0.8em;
+        
+        /* Keep background white for slides but preserve other backgrounds */
+        background: white;
+        
+        /* Reasonable scaling for print */
+        font-size: 1em;
+    }
+
+    /* First slide shouldn't have page break before */
+    body.printing-all-slides .slide:first-child {
+        page-break-before: avoid;
+    }
+
+    /* Don't override font sizes - let them scale naturally from the base */
+    body.printing-all-slides .slide * {
+        opacity: 1 !important;
+    }
+
+    /* Ensure slide content appears above background */
+    body.printing-all-slides .slide > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Keep the background image but lighter for print (updated for new theme logic) */
+    body.printing-all-slides .slide::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* The red-themed version removes this background image */
+        display: none !important; /* Hide the pseudo-element completely in print */
+    }
+
+    /* Preserve your exact layout structure (updated for new theme logic) */
+    body.printing-all-slides .slide-header {
+        display: flex;
+        justify-content: center; /* Centered title from Berkeley version */
+        align-items: center;
+        border-bottom: 2px solid var(--light-border); /* Updated to use variable */
+        padding-bottom: 0.5em; /* Original Berkeley value */
+        margin-bottom: 1em; /* Original Berkeley value */
+    }
+
+    body.printing-all-slides .slide-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: var(--light-text-primary); /* Updated to use variable */
+        text-align: center;
+        margin: 0;
+    }
+
+    body.printing-all-slides .slide-body.two-column {
+        display: flex;
+        gap: 2em;
+        align-items: flex-start;
+    }
+
+    body.printing-all-slides .left-panel,
+    body.printing-all-slides .right-panel {
+        flex: 1;
+        min-width: 0;
+    }
+
+    body.printing-all-slides .slide-body.section-header {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    /* Print footer styles (updated for new theme logic) */
+    body.printing-all-slides .slide-footer {
+        position: absolute;
+        bottom: 0.5em;
+        left: 0.8em;
+        right: 0.8em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--light-border); /* Updated to use variable */
+        padding-top: 0.3em;
+        z-index: 2;
+        background: rgba(var(--light-card-rgb), 0.95); /* Updated to use variable */
+    }
+    
+    body.printing-all-slides .footer-logo img {
+        height: 25px;
+        opacity: 0.7;
+    }
+    
+    body.printing-all-slides .footer-info {
+        font-size: 0.7em;
+        color: var(--light-text-secondary); /* Updated to use variable */
+    }
+
+    /* Keep code blocks readable and properly sized */
+    body.printing-all-slides pre[class*="language-"] {
+        page-break-inside: avoid !important;
+        font-size: 0.85em;
+        line-height: 1.0;
+        max-height: none;
+        overflow: visible;
+        margin: 0.4em 0;
+        padding: 0.8em;
+    }
+
+    /* Keep tables intact and sized appropriately */
+    body.printing-all-slides table {
+        page-break-inside: avoid !important;
+        font-size: 0.9em;
+        margin: 0.4em 0;
+    }
+
+    /* Reasonable spacing in two-column layout */
+    body.printing-all-slides .slide-body.two-column {
+        display: flex;
+        gap: 1.2em;
+        align-items: flex-start;
+    }
+
+    /* Section headers with proper hierarchy */
+    body.printing-all-slides .section-title {
+        font-size: 3.5rem;
+    }
+
+    body.printing-all-slides .section-subtitle {
+        font-size: 1.3rem;
+    }
+
+    /* Content hierarchy */
+    body.printing-all-slides h4 {
+        margin: 0.5em 0 0.3em 0;
+        font-size: 1.2em;
+    }
+
+    body.printing-all-slides p {
+        margin: 0.4em 0;
+        line-height: 1.4;
+        font-size: 1em;
+    }
+
+    body.printing-all-slides li {
+        margin: 0.2em 0;
+        line-height: 1.4;
+    }
+
+    /* Left/right panel content sizing */
+    body.printing-all-slides .left-panel {
+        font-size: 1.1em;
+    }
+
+    body.printing-all-slides .right-panel {
+        font-size: 1em;
+    }
+
+    /* Callout boxes and annotation elements - make smaller */
+    body.printing-all-slides .annotation-element,
+    body.printing-all-slides .callout,
+    body.printing-all-slides .info-box,
+    body.printing-all-slides .warning-box,
+    body.printing-all-slides .note-box,
+    body.printing-all-slides .highlight-box,
+    body.printing-all-slides [id$="-box"],
+    body.printing-all-slides [class*="box"],
+    body.printing-all-slides [style*="background"],
+    body.printing-all-slides [style*="border"] {
+        font-size: 0.8em !important;
+        line-height: 1.3 !important;
+        padding: 0.4em !important;
+        margin: 0.3em 0 !important;
+    }
+
+    /* Target any nested content in callout boxes */
+    body.printing-all-slides .annotation-element *,
+    body.printing-all-slides .callout *,
+    body.printing-all-slides [id$="-box"] *,
+    body.printing-all-slides [class*="box"] * {
+        font-size: inherit !important;
+        line-height: inherit !important;
+    }
+
+    /* Hide interactive elements and annotations */
+    body.printing-all-slides .nav,
+    body.printing-all-slides .sidebar,
+    body.printing-all-slides .sidebar-overlay,
+    body.printing-all-slides button,
+    body.printing-all-slides .copy-code-button,
+    body.printing-all-slides .annotation-toggle,
+    body.printing-all-slides .hamburger-menu,
+    body.printing-all-slides .code-annotation {
+        display: none !important;
+    }
+
+    /* Title slide specific styling for print */
+    body.printing-all-slides .title-slide {
+        padding: 0 !important;
+        background: var(--light-background) !important; /* Updated for new theme */
+        display: block !important;
+        position: relative !important;
+    }
+
+    body.printing-all-slides .title-slide::before {
+        display: none !important;
+    }
+
+    body.printing-all-slides .title-left,
+    body.printing-all-slides .title-right {
+        position: absolute !important;
+        top: 0 !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        padding: 2em !important;
+    }
+
+    body.printing-all-slides .title-left {
+        left: 0 !important;
+        width: 60% !important;
+        background: rgba(var(--light-card-rgb), 0.85) !important; /* Updated for new theme */
+    }
+
+    body.printing-all-slides .title-right {
+        right: 0 !important;
+        width: 40% !important;
+        background-color: var(--light-surface) !important; /* Updated for new theme */
+        color: var(--light-text-primary) !important; /* Updated for new theme */
+        align-items: flex-start !important;
+        padding-top: 3em !important;
+        border-left: 4px solid var(--primary-color) !important; /* Updated for new theme */
+    }
+
+    body.printing-all-slides .title-left h2 {
+        font-size: 1.3em !important;
+        color: var(--light-text-primary) !important; /* Updated for new theme */
+        font-weight: bold !important;
+        margin: 0 !important;
+    }
+
+    body.printing-all-slides .title-left h1 {
+        font-size: 2.2em !important;
+        color: var(--light-text-primary) !important; /* Updated for new theme */
+        font-weight: bold !important;
+        margin: 0 !important;
+        line-height: 1.1 !important;
+    }
+
+    body.printing-all-slides .uc-seal {
+        margin-top: 1em !important;
+        max-height: 250px !important;
+        aspect-ratio: auto !important;
+        align-self: flex-start !important;
+    }
+
+    body.printing-all-slides .title-right .info p {
+        font-size: 1em !important;
+        margin: 0.4em 0 !important;
+    }
+
+    body.printing-all-slides .msse-logo {
+        position: absolute !important;
+        top: 0.5em !important;
+        right: 0.5em !important;
+        height: 150px !important;
+        z-index: 10 !important;
+    }
+
+    /* Keep images properly sized */
+    body.printing-all-slides img {
+        max-width: 100%;
+        height: auto;
+        page-break-inside: avoid;
+    }
+}
+
+.title-logo {
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin-top: 2em;
+}
+
+body.fullscreen-active .slide-footer {
+    bottom: 0px; /* Moves the footer to the very bottom of the viewport */
+}

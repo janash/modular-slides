@@ -1,0 +1,35 @@
+<section class="slide two-column" id="course-outline">
+  <div class="slide-header">
+    <h2 class="slide-title">Outline</h2>
+  </div>
+  <div class="slide-body one-column">
+    <div class="content-wrapper">
+        <ul id="topics-list">
+            <li><span class="highlight-item">The size of "Chemical Space"</span></li>
+            <li><span class="highlight-item">Molecular representations and descriptors</span></li>
+            <li><span class="highlight-item">Machine learning fundamentals</span></li>
+            <li><span class="highlight-item">Deep learning applications</span></li>
+        </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+class OutlineAnimation extends SlideAnimation {
+    get slideId() {
+        return 'course-outline';
+    }
+    
+    animate() {
+        const steps = [
+            () => highlightListItem('topics-list', 0),
+            () => highlightListItem('topics-list', 1),
+            () => highlightListItem('topics-list', 2),
+            () => highlightListItem('topics-list', 3),
+        ];
+        return runAnimationSteps(steps);
+    }
+}
+
+new OutlineAnimation();
+</script>
